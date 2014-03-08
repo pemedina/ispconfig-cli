@@ -1,0 +1,8 @@
+#! /usr/bin/env php
+<?php
+
+$environment = getenv('ISPCONFIG_ENV') ?: 'development';
+$loader = require_once(__DIR__ . '/../vendor/autoload.php');
+$app = new Cli\DomainsApplication();
+$app->register(new \Cilex\Provider\ConfigServiceProvider(), array('config.path' => __DIR__."/config/$environment.json"));
+$app->run();

@@ -1,0 +1,16 @@
+{
+    "name": "pemedina/ispconfig3-cli",
+    "description": "ISPconfig 3 CLI interface",
+    "authors": [
+        {
+            "name": "Pablo E. Medina",
+            "email": "pablo.medina@gmail.com"
+        }
+    ],
+    "autoload": {
+        "psr-0":{ "Cli": "src/" }
+    },
+    "require": {
+      "cilex/cilex": "dev-master"
+    }
+}

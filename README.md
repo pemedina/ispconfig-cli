@@ -5,13 +5,15 @@ ISPconfig3-cli is a library designed to interact with [ISPConfig3](http://www.is
 perform all actions provided by [ISPConfig remote API](http://docs.ispconfig.org/development/remote-api/).
 
 
-## Quick start
+## Installation
 
+ 1. `git clone` _this_ repository.
+ 2. Download composer: `curl -s https://getcomposer.org/installer | php`
+ 3. Install  dependencies: `php composer.phar install`
+ 4. Edit `config/development.json` with your ISPconfig remote details.
 
-Clone this repository. Edit config/{environment}.json with your ISPconfig remote details.
-All commands are located under bin/ directory
+## Usage
 
-## Commands
 ```
 ### Mail
 bin/mail domain_get 4
@@ -31,4 +33,4 @@ bin/get functions_list
 
 ## Credits
 - [Cilex](https://github.com/Cilex)
-- [ISPconfig3](http://www.ispconfig.org)
+- [ISPConfig](http://www.ispconfig.org)

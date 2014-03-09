@@ -16,6 +16,13 @@ class ClientApplication extends BaseApplication  {
         $clientGetByUsernameCommand = new Client\GetByUsernameCommand();
         $this->command($clientGetByUsernameCommand);
 
+        $clientGetIdCommand = new Client\GetIdCommand();
+        $this->command($clientGetIdCommand);
 
+        $clientChangePasswordCommand = new Client\ChangePasswordCommand();
+        $this->command($clientChangePasswordCommand);
+
+        $clientChangePasswordCommand = new Client\GetSitesByUserCommand();
+        $this->command($clientChangePasswordCommand);
     }
 }

@@ -19,7 +19,7 @@ class FunctionListCommand extends BaseCommand{
         $this->setSoapSession ( $output );
         $result = $this->client->get_function_list( $this->session_id);
 
-        $table = $this->getHelperSet()->get('table');
+        $table = $this->getHelperSet()->get('table')->setLayout(1);
         $table->setHeaders(array('Function Name'));
         foreach ( array_values($result) as  $functionName)
             $table->addRow(array( $functionName));

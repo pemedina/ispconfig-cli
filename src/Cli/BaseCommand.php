@@ -3,12 +3,23 @@
 use Cilex\Command\Command as Command;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * Base class for all commands of the App.
+ *
+ */
 class BaseCommand extends Command
 {
 
     protected $session_id;
     protected $client;
 
+    /**
+     * Initializes the soap client.
+     *
+     * @param Array $config Configuration values
+     *
+     * @return \SoapClient Object
+     */
     protected function getSoapClient($config)
     {
         return new \SoapClient(
@@ -21,6 +32,14 @@ class BaseCommand extends Command
         );
     }
 
+    /**
+     * Creates a soap session_id.
+     *
+     * @param Array $config Configuration values
+     *
+     * @throws \Exception
+     * @return \SoapClient Object
+     */
     protected function buildSoapSession($config)
     {
         if (NULL == $this->client)
@@ -35,6 +54,13 @@ class BaseCommand extends Command
         return $this;
     }
 
+    /**
+     * Create a SOAP connection used by all commands.
+     *
+     * @param OutputInterface $output
+     *
+     * @return Object
+     */
     protected function setSoapSession(OutputInterface $output)
     {
         try {
@@ -46,6 +72,13 @@ class BaseCommand extends Command
         return $this;
     }
 
+    /**
+     * Receive a soap response and throws an exception if empty..
+     *
+     * @param  String $result Soap Result.
+     * @throws \Exception
+     * @return String
+     */
     protected function validateResult($result)
     {
         if (!$result)

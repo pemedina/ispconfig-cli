@@ -9,7 +9,7 @@ use Symfony\Component\Console\Input\InputArgument;
 
 /**
  * Class DomainGetCommand
- * @package Cli\Mail
+ * @package Cli\Domains
  */
 class DomainAddCommand extends BaseCommand{
     protected function configure()

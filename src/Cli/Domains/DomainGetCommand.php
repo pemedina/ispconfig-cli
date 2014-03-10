@@ -9,7 +9,7 @@ use Symfony\Component\Console\Input\InputArgument;
 
 /**
  * Class DomainGetCommand
- * @package Cli\Mail
+ * @package Cli\Domains
  */
 class DomainGetCommand extends BaseCommand{
     protected function configure()
@@ -20,11 +20,7 @@ class DomainGetCommand extends BaseCommand{
             ->addArgument('domain_id', InputArgument::REQUIRED, 'A valid domain id');
     }
 
-    /**
-     * @param InputInterface $input
-     * @param OutputInterface $output
-     * @return int|null|void
-     */
+
     protected function execute(InputInterface $input, OutputInterface $output)
     {
 

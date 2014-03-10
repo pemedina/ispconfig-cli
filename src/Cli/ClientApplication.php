@@ -22,7 +22,13 @@ class ClientApplication extends BaseApplication  {
         $clientChangePasswordCommand = new Client\ChangePasswordCommand();
         $this->command($clientChangePasswordCommand);
 
-        $clientChangePasswordCommand = new Client\GetSitesByUserCommand();
-        $this->command($clientChangePasswordCommand);
+        $clientGetSitesByUserCommand = new Client\GetSitesByUserCommand();
+        $this->command($clientGetSitesByUserCommand);
+
+        $clientDeleteCommand = new Client\DeleteCommand();
+        $this->command($clientDeleteCommand);
+
+        $clientDeleteEverythingCommand = new Client\DeleteEverythingCommand();
+        $this->command($clientDeleteEverythingCommand);
     }
 }

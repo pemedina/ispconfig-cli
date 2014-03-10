@@ -21,11 +21,7 @@ class GetIdCommand extends BaseCommand{
         $result = $this
             ->setSoapSession ( $output )
             ->validateResult( $this->client->client_get_id( $this->session_id, $input->getArgument('client_id')));
+        $output->writeln('<info>'.$result.'</info>');
 
-        $table = $this->getHelperSet()->get('table');
-        foreach ( $result as  $key=> $value)
-            $table->addRow(array( $key,$value));
-
-            $table->setLayout(2)->setHeaders(array('Setting', 'Value'))->render($output);
     }
 }

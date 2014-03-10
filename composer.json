@@ -11,6 +11,7 @@
         "psr-0":{ "Cli": "src/" }
     },
     "require": {
-      "cilex/cilex": "dev-master"
+      "cilex/cilex": "dev-master",
+      "symfony/yaml": "2.3.*@dev"
     }
 }

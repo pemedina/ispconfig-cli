@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "e90d275ee5521153f680757065f36570",
+    "hash": "0bdc21310440dc9526b8e068bb8c1aac",
     "packages": [
         {
             "name": "cilex/cilex",
@@ -321,6 +321,55 @@
             "description": "Symfony Process Component",
             "homepage": "http://symfony.com",
             "time": "2014-02-11 13:52:09"
+        },
+        {
+            "name": "symfony/yaml",
+            "version": "2.3.x-dev",
+            "target-dir": "Symfony/Component/Yaml",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/Yaml.git",
+                "reference": "3acf34f6993db3d873fa77ac2cb6e595db00b88d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/3acf34f6993db3d873fa77ac2cb6e595db00b88d",
+                "reference": "3acf34f6993db3d873fa77ac2cb6e595db00b88d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.3-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Symfony\\Component\\Yaml\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com",
+                    "homepage": "http://fabien.potencier.org",
+                    "role": "Lead Developer"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "http://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony Yaml Component",
+            "homepage": "http://symfony.com",
+            "time": "2014-03-04 16:04:39"
         }
     ],
     "packages-dev": [
@@ -331,7 +380,8 @@
     ],
     "minimum-stability": "stable",
     "stability-flags": {
-        "cilex/cilex": 20
+        "cilex/cilex": 20,
+        "symfony/yaml": 20
     },
     "platform": [
 

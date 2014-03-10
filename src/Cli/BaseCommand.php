@@ -2,7 +2,9 @@
 
 use Cilex\Command\Command as Command;
 use Symfony\Component\Console\Output\OutputInterface;
-
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
 /**
  * Base class for all commands of the App.
  *

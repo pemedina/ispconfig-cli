@@ -16,7 +16,8 @@ class UserAddCommand extends BaseCommand{
         $this
             ->setName('user_add')
             ->setDescription('Adds a mail user')
-            ->addArgument('type', InputArgument::REQUIRED, 'An example argument');
+            ->addArgument('type', InputArgument::REQUIRED, 'An example argument')
+            ->addOption('param-file', null, InputOption::VALUE_OPTIONAL , 'Full path to a YAML file containing additional parameters.');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)

@@ -3,25 +3,46 @@
 namespace Cli\Client;
 
 use Cli\BaseCommand;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Input\InputArgument;
 
-class GetIdCommand extends BaseCommand{
+class GetIdCommand extends BaseCommand
+{
+
+    protected $webService;
+    protected $commandSetup = array(
+        'name'        => 'get_id',
+        'description' => "Retrieves the client ID of the system user.",
+        'arguments'   =>
+            array(
+                array('name' => 'client_id', 'type' => InputArgument::REQUIRED, 'desc' => 'A valid client ID.')
+            )
+    );
+    protected $supportsParamsFile = FALSE;
+
+    /*
+     * @property $webService \ISPConfigWS
+     */
+    function __construct($webService)
+    {
+        parent::__construct();
+        $this->webService = $webService;
+    }
+
     protected function configure()
     {
-        $this
-            ->setName('get_id')
-            ->setDescription('Retrieves the client ID of the system user.')
-            ->addArgument('client_id', InputArgument::REQUIRED, 'A valid client ID');
+        parent::configure($this->commandSetup);
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $result = $this
-            ->setSoapSession ( $output )
-            ->validateResult( $this->client->client_get_id( $this->session_id, $input->getArgument('client_id')));
-        $output->writeln('<info>'.$result.'</info>');
+        $result = json_decode($this->webService
+            ->with($input->getArguments())
+            ->getClientID()
+            ->response());
+
+        $output->writeln('<info>' . $result . '</info>');
 
     }
 }

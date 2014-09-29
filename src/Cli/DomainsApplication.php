@@ -11,6 +11,5 @@ class DomainsApplication extends BaseApplication  {
 
         $domainAddCommand = new Domains\DomainAddCommand();
         $this->command($domainAddCommand);
-
     }
 }

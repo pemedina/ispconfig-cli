@@ -1,30 +1,34 @@
 <?php namespace Cli;
 
-class ClientApplication extends BaseApplication  {
+class ClientApplication extends BaseApplication
+{
+    /**
+     * @var ISPConfigWS
+     */
+    private $webservice;
 
-    public function __construct() {
+    public function __construct( ISPConfigWS $webservice)
+    {
+        $this->webservice = $webservice;
+        parent::__construct($this->webservice);
 
-        parent::__construct();
-
-        $clientGetCommand = new Client\GetCommand();
+        $clientGetCommand = new Client\GetCommand($this->webservice);
         $this->command($clientGetCommand);
 
-        $clientGetByUsernameCommand = new Client\GetByUsernameCommand();
+        $clientGetByUsernameCommand = new Client\GetByUsernameCommand($this->webservice);
         $this->command($clientGetByUsernameCommand);
 
-        $clientGetIdCommand = new Client\GetIdCommand();
+        $clientGetIdCommand = new Client\GetIdCommand($this->webservice);
         $this->command($clientGetIdCommand);
 
-        $clientChangePasswordCommand = new Client\ChangePasswordCommand();
+        $clientChangePasswordCommand = new Client\ChangePasswordCommand($this->webservice);
         $this->command($clientChangePasswordCommand);
 
-        $clientGetSitesByUserCommand = new Client\GetSitesByUserCommand();
+        $clientGetSitesByUserCommand = new Client\GetSitesByUserCommand($this->webservice);
         $this->command($clientGetSitesByUserCommand);
 
-        $clientDeleteCommand = new Client\DeleteCommand();
+        $clientDeleteCommand = new Client\DeleteCommand($this->webservice);
         $this->command($clientDeleteCommand);
 
-        $clientDeleteEverythingCommand = new Client\DeleteEverythingCommand();
-        $this->command($clientDeleteEverythingCommand);
     }
 }

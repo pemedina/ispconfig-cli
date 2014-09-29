@@ -3,29 +3,45 @@
 namespace Cli\Server;
 
 use Cli\BaseCommand;
+use Cli\ISPConfigWS;
+use Symfony\Component\Console\Helper\Table;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Input\InputArgument;
 
-class GetserverIdByIpCommand extends BaseCommand{
-    protected function configure()
+class GetserverIdByIpCommand extends BaseCommand
+{
+
+    protected $commandSetup = array(
+        'name'        => 'get_by_ip',
+        'description' => 'Returns server information by its IP.',
+        'arguments'   =>
+            array(
+                array('name' => 'server_id', 'type' => InputArgument::REQUIRED, 'desc' => 'A valid server IP.')
+            )
+    );
+
+
+    /**
+     * @param ISPConfigWS $webService
+     */
+    public function __construct(ISPConfigWS $webService)
     {
-        $this
-            ->setName('get_server_by_ip')
-            ->setDescription('Returns server information by its IP..')
-            ->addArgument('ip_address', InputArgument::REQUIRED, 'A valid server IP');
+        parent::__construct();
+        $this->webService = $webService;
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
 
-        $result = $this
-            ->setSoapSession ( $output )
-            ->validateResult( $this->client->server_get_serverid_by_ip( $this->session_id, $input->getArgument('ip_address')));
+        $result = json_decode($this->webService
+            ->with($input->getArguments())
+            ->getServerByIp()
+            ->response());
 
-        $table = $this->getHelperSet()->get('table');
-        foreach ( $result[0] as  $key=> $value)
-            $table->addRow(array( $key,$value));
+        $table = new Table($output);
+        foreach ($result[0] as $key => $value)
+            $table->addRow(array($key, $value));
 
         $table->setHeaders(array('Setting', 'Value'))->render($output);
     }

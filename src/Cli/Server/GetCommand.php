@@ -3,33 +3,54 @@
 namespace Cli\Server;
 
 use Cli\BaseCommand;
+use Cli\ISPConfigWS;
+use Symfony\Component\Console\Helper\Table;
+use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
-use Symfony\Component\Console\Input\InputArgument;
 
-class GetCommand extends BaseCommand{
-    protected function configure()
+class GetCommand extends BaseCommand
+{
+
+    /**
+     * @var ISPConfigWS
+     */
+    protected $webService;
+
+    protected $commandSetup = array(
+        'name'        => 'get',
+        'description' => "Returns server information by its ID.",
+        'arguments'   =>
+            array(
+                array('name' => 'server_id', 'type' => InputArgument::REQUIRED, 'desc' => 'A valid server ID.')
+            )
+
+    );
+
+    /**
+     * @param ISPConfigWS $webService
+     */
+    public function __construct(ISPConfigWS $webService)
     {
-        $this
-            ->setName('get')
-            ->setDescription('Returns server information by its ID.')
-            ->addArgument('server_id', InputArgument::REQUIRED, 'A valid server ID');
+        parent::__construct();
+        $this->webService = $webService;
     }
+
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $result = $this
-            ->setSoapSession ( $output )
-            ->validateResult( $this->client->server_get( $this->session_id, $input->getArgument('server_id')));
 
+        $result = json_decode($this->webService
+            ->with($input->getArguments())
+            ->getServer()
+            ->response());
 
-        $table = $this->getHelperSet()->get('table');
-        foreach ( $result as $section)
-        {
-            foreach ( $section as  $key=> $value)
-                $table->addRow(array( $key,$value));
+        $table = new Table($output);
+        foreach ($result as $section) {
+            foreach ($section as $key => $value)
+                $table->addRow(array($key, $value));
 
-            $table->setLayout(2)->setHeaders(array('Setting', 'Value'))->render($output);
+            $table->setHeaders(array('Setting', 'Value'))->render($output);
         }
     }
 }

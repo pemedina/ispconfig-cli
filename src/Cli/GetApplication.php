@@ -1,13 +1,22 @@
 <?php namespace Cli;
 
-class GetApplication extends BaseApplication  {
+class GetApplication extends BaseApplication
+{
 
-    public function __construct() {
+    /**
+     * @var ISPConfigWS
+     */
+    private $webservice;
 
-        parent::__construct();
+    /**
+     * @param ISPConfigWS $webservice
+     */
+    public function __construct( ISPConfigWS $webservice) {
 
-        $functionListCommand = new Get\FunctionListCommand();
+        $this->webservice = $webservice;
+        parent::__construct( $this->webservice);
+
+        $functionListCommand = new Get\FunctionListCommand(  $this->webservice);
         $this->command($functionListCommand);
-
     }
 }

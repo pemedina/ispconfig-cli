@@ -1,28 +1,41 @@
 <?php namespace Cli\Get;
 
 use Cli\BaseCommand;
+use Cli\ISPConfigWS;
+use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 
-class FunctionListCommand extends BaseCommand{
+class FunctionListCommand extends BaseCommand
+{
 
-    protected function configure()
+    protected $commandSetup = array(
+        'name'        => 'function_list',
+        'description' => "Shows all available remote API functions.",
+        'arguments'   => []
+
+    );
+    protected $supportsParamsFile = FALSE;
+
+    /*
+  * @property $webService ISPConfigWS
+  */
+    public function __construct(ISPConfigWS $webService)
     {
-        $this
-            ->setName('function_list')
-            ->setDescription('Shows all available remote API functions.');
+        parent::__construct();
+        $this->webService = $webService;
     }
+
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $this->setSoapSession ( $output );
-        $result = $this->client->get_function_list( $this->session_id);
+        $result = json_decode($this->webService->getFunctionsList($this->session_id)->response());
 
-        $table = $this->getHelperSet()->get('table')->setLayout(1);
+        $table = new Table($output);
         $table->setHeaders(array('Function Name'));
-        foreach ( array_values($result) as  $functionName)
-            $table->addRow(array( $functionName));
+        foreach ($result as $functionName)
+            $table->addRow(array($functionName));
 
         $table->render($output);
 

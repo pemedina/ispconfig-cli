@@ -26,6 +26,5 @@ class MailApplication extends BaseApplication  {
 
         $userUpdateCommand = new Mail\UserUpdateCommand();
         $this->command($userUpdateCommand);
-
     }
 }

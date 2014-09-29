@@ -8,22 +8,39 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 
 class GetSitesByUserCommand extends BaseCommand{
-    protected function configure()
+
+    protected $webService;
+    protected $commandSetup = array(
+        'name'        => 'get_sites_by_user',
+        'description' => "Shows sites and its values belonging to the specified user.",
+        'arguments'   =>
+            array(
+                array('name' => 'user_id', 'type' => InputArgument::REQUIRED, 'desc' => 'A valid user ID.'),
+                array('name' => 'group_id', 'type' => InputArgument::OPTIONAL, 'desc' => 'A valid group ID.')
+            )
+    );
+    protected $supportsParamsFile = FALSE;
+
+    /*
+ * @property $webService \ISPConfigWS
+ */
+    function __construct($webService)
     {
-        $this
-            ->setName('get_sites_by_user')
-            ->setDescription('Shows sites and its values belonging to the specified user.')
-            ->addArgument('user_id', InputArgument::REQUIRED, 'A valid user id')
-            ->addArgument('group_id', InputArgument::OPTIONAL, 'A valid group id');
+        parent::__construct();
+        $this->webService = $webService;
     }
+
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
 
-        $result = $this
-            ->setSoapSession ( $output )
-            ->validateResult( $this->client->client_get_sites_by_user( $this->session_id, $input->getArgument('user_id')));
+        $result = json_decode($this->webService
+            ->with($input->getArguments())
+            ->getClientSites()
+            ->response());
 
+        var_dump ( $result);
+        die();
         $table = $this->getHelperSet()->get('table')->setLayout(1);
         foreach ( $result as  $key=> $value)
             $table->addRow(array( $key,$value));

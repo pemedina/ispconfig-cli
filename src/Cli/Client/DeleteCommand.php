@@ -6,20 +6,38 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 
 class DeleteCommand extends BaseCommand{
+    protected $webService;
+    protected $commandSetup = array(
+        'name'        => 'delete',
+        'description' => "Deletes a client.",
+        'arguments'   =>
+            array(
+                array('name' => 'client_id', 'type' => InputArgument::REQUIRED, 'desc' => 'A valid client ID.')
+            )
+    );
+    protected $supportsParamsFile = FALSE;
+
+    /*
+ * @property $webService \ISPConfigWS
+ */
+    function __construct($webService)
+    {
+        parent::__construct();
+        $this->webService = $webService;
+    }
+
     protected function configure()
     {
-        $this
-            ->setName('delete')
-            ->setDescription("Deletes a client.")
-            ->addArgument('client_id', InputArgument::REQUIRED, 'A valid client ID');
-
+        parent::configure( $this->commandSetup);
     }
+
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $result = $this
-            ->setSoapSession ( $output )
-            ->validateResult( $this->client->client_delete( $this->session_id, $input->getArgument('client_id')));
+        $result = json_decode($this->webService
+            ->with($input->getArguments())
+            ->deleteClient()
+            ->response());
 
         $output->writeln('<info>'.$result.'</info>');
     }

@@ -1,6 +1,7 @@
 #! /usr/bin/env php
 <?php
+use Cli\ISPConfigWS;
 
 $loader = require_once(__DIR__ . '/../vendor/autoload.php');
-$app = new Cli\ClientApplication();
+$app = new Cli\ClientApplication(  new ISPConfigWS() );
 $app->run();

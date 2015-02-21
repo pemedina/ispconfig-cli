@@ -27,6 +27,9 @@ class ClientApplication extends BaseApplication
         $clientGetSitesByUserCommand = new Client\GetSitesByUserCommand($this->webservice);
         $this->command($clientGetSitesByUserCommand);
 
+        $clientAddCommand =new Client\AddCommand($this->webservice);
+        $this->command( $clientAddCommand);
+
         $clientDeleteCommand = new Client\DeleteCommand($this->webservice);
         $this->command($clientDeleteCommand);
 

@@ -14,7 +14,8 @@ class DeleteEverythingCommand extends BaseCommand{
         'arguments'   =>
             array(
                 array('name' => 'client_id', 'type' => InputArgument::REQUIRED, 'desc' => 'A valid client ID.')
-            )
+            ),
+        'options'     => array()
     );
     protected $supportsParamsFile = FALSE;
 

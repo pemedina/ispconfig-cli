@@ -4,5 +4,5 @@
 use Cli\ISPConfigWS;
 
 $loader = require_once(__DIR__ . '/../vendor/autoload.php');
-$app = new Cli\ServerApplication( new ISPConfigWS());
+$app = new Cli\ServerApplication(new ISPConfigWS());
 $app->run();

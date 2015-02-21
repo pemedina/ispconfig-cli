@@ -23,7 +23,8 @@ class GetCommand extends BaseCommand
         'arguments'   =>
             array(
                 array('name' => 'server_id', 'type' => InputArgument::REQUIRED, 'desc' => 'A valid server ID.')
-            )
+            ),
+        'options'     => array()
 
     );
 

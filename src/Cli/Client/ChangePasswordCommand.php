@@ -1,7 +1,6 @@
 <?php namespace Cli\Client;
 
 use Cli\BaseCommand;
-use Cli\WebServiceInterface;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -17,7 +16,8 @@ class ChangePasswordCommand extends BaseCommand
             array(
                 array('name' => 'client_id', 'type' => InputArgument::REQUIRED, 'desc' => 'A valid client ID.'),
                 array('name' => 'password', 'type' => InputArgument::REQUIRED, 'desc' => 'A new password.'),
-            )
+            ),
+        'options'     => array()
     );
     protected $supportsParamsFile = FALSE;
 
@@ -29,9 +29,6 @@ class ChangePasswordCommand extends BaseCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $result = $this
-            ->setSoapSession($output)
-            ->validateResult($this->client->client_change_password($this->session_id, $input->getArgument('client_id'), $input->getArgument('password')));
 
         $output->writeln('<info>' . $result . '</info>');
     }

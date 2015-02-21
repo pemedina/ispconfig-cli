@@ -4,6 +4,7 @@ namespace Cli\Client;
 
 use Cli\BaseCommand;
 use Cli\ISPConfigWS;
+use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -21,7 +22,8 @@ class GetByUsernameCommand extends BaseCommand
         'arguments'   =>
             array(
                 array('name' => 'username', 'type' => InputArgument::REQUIRED, 'desc' => 'A valid username.')
-            )
+            ),
+        'options'     => array()
     );
     protected $supportsParamsFile = FALSE;
 
@@ -42,7 +44,7 @@ class GetByUsernameCommand extends BaseCommand
             ->getClientByUsername()
             ->response());
 
-        $table = $this->getHelperSet()->get('table')->setLayout(1);
+        $table = new Table($output);
         foreach ($result as $key => $value)
             $table->addRow(array($key, $value));
 

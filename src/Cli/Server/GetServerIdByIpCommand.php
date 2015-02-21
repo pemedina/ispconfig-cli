@@ -18,7 +18,8 @@ class GetserverIdByIpCommand extends BaseCommand
         'arguments'   =>
             array(
                 array('name' => 'server_id', 'type' => InputArgument::REQUIRED, 'desc' => 'A valid server IP.')
-            )
+            ),
+        'options'     => array()
     );
 
 
@@ -40,9 +41,15 @@ class GetserverIdByIpCommand extends BaseCommand
             ->response());
 
         $table = new Table($output);
-        foreach ($result[0] as $key => $value)
-            $table->addRow(array($key, $value));
 
-        $table->setHeaders(array('Setting', 'Value'))->render($output);
+
+        foreach ($result as $section)
+        {
+            foreach ($section as $key => $value)
+                $table->addRow(array($key, $value));
+
+            $table->setHeaders(array('Setting', 'Value'))->render($output);
+        }
+
     }
 }

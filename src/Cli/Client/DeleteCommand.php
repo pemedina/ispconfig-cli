@@ -6,6 +6,10 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Input\InputArgument;
 
 class DeleteCommand extends BaseCommand{
+
+    /**
+     * @var ISPConfigWS
+     */
     protected $webService;
     protected $commandSetup = array(
         'name'        => 'delete',
@@ -13,7 +17,8 @@ class DeleteCommand extends BaseCommand{
         'arguments'   =>
             array(
                 array('name' => 'client_id', 'type' => InputArgument::REQUIRED, 'desc' => 'A valid client ID.')
-            )
+            ),
+        'options'     => array()
     );
     protected $supportsParamsFile = FALSE;
 

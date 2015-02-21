@@ -13,7 +13,8 @@ class FunctionListCommand extends BaseCommand
     protected $commandSetup = array(
         'name'        => 'function_list',
         'description' => "Shows all available remote API functions.",
-        'arguments'   => []
+        'arguments'   => [],
+        'options'     => array()
 
     );
     protected $supportsParamsFile = FALSE;

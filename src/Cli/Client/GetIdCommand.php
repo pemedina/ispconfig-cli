@@ -31,19 +31,12 @@ class GetIdCommand extends BaseCommand
         $this->webService = $webService;
     }
 
-    protected function configure()
-    {
-        parent::configure($this->commandSetup);
-    }
-
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $result = json_decode($this->webService
             ->with($input->getArguments())
             ->getClientID()
             ->response());
-
-        $output->writeln('<info>' . $result . '</info>');
-
+        $this->renderValue($output, $result);
     }
 }

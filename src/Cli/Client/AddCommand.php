@@ -68,7 +68,7 @@ class AddCommand extends BaseCommand
             array('name' => 'notes', 'type' => InputOption::VALUE_OPTIONAL, 'desc' => ''),
             array('name' => 'parent_client_id', 'type' => InputOption::VALUE_OPTIONAL, 'desc' => ''),
             array('name' => 'password', 'type' => InputOption::VALUE_OPTIONAL, 'desc' => ''),
-            array('name' => 'ssh_chroot', 'type' => InputOption::VALUE_OPTIONAL, 'desc' => ''),
+            array('name' => 'ssh_chroot', 'type' => InputOption::VALUE_REQUIRED, 'desc' => ''),
             array('name' => 'state', 'type' => InputOption::VALUE_OPTIONAL, 'desc' => ''),
             array('name' => 'street', 'type' => InputOption::VALUE_OPTIONAL, 'desc' => ''),
             array('name' => 'telephone', 'type' => InputOption::VALUE_OPTIONAL, 'desc' => ''),
@@ -76,7 +76,7 @@ class AddCommand extends BaseCommand
             array('name' => 'template_master', 'type' => InputOption::VALUE_OPTIONAL, 'desc' => ''),
             array('name' => 'usertheme', 'type' => InputOption::VALUE_OPTIONAL, 'desc' => ''),
             array('name' => 'vat_id', 'type' => InputOption::VALUE_OPTIONAL, 'desc' => ''),
-            array('name' => 'web_php_options', 'type' => InputOption::VALUE_OPTIONAL, 'desc' => ''),
+            array('name' => 'web_php_options', 'type' => InputOption::VALUE_REQUIRED, 'desc' => ''),
             array('name' => 'zip', 'type' => InputOption::VALUE_OPTIONAL, 'desc' => ''),
         )
     );
@@ -97,8 +97,6 @@ class AddCommand extends BaseCommand
             ->with($this->sanitizeParameters($input))
             ->addClient()
             ->response());
-
         $this->renderValue($output, $result);
-
     }
 }

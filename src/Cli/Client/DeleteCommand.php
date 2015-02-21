@@ -44,6 +44,6 @@ class DeleteCommand extends BaseCommand{
             ->deleteClient()
             ->response());
 
-        $output->writeln('<info>'.$result.'</info>');
+        $this->renderValue($output, $result);
     }
 }

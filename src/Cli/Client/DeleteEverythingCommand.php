@@ -39,7 +39,7 @@ class DeleteEverythingCommand extends BaseCommand{
 
         $result = json_decode($this->webService
             ->with($input->getArguments())
-            ->deleteClient()
+            ->deleteClientEverything()
             ->response());
         $output->writeln('<info>'.$result.'</info>');
     }

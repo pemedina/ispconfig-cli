@@ -1,6 +1,7 @@
 <?php namespace Cli;
 
 use Cilex\Command\Command as Command;
+use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -43,6 +44,21 @@ class BaseCommand extends Command
     {
         $this->exitIfError($output, $response);
         $output->writeln("<info>{$response->result}</info>");
+        exit(0);
+    }
+
+    public function renderGroupTable( OutputInterface $output, $response)
+    {
+
+    }
+
+    public function renderTable( OutputInterface $output, $response)
+    {
+        $table = new Table($output);
+        foreach ($response as $key => $value)
+            $table->addRow(array($key, $value));
+
+        $table->setHeaders(array('Setting', 'Value'))->render($output);
         exit(0);
     }
 

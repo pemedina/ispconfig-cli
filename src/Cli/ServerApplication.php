@@ -16,10 +16,7 @@ class ServerApplication extends BaseApplication
         $this->webservice = $webservice;
         parent::__construct($this->webservice);
 
-        $serverGetCommand = new Server\GetCommand($this->webservice);
-        $this->command($serverGetCommand);
-
-        $serverGetServerIdByIpCommand = new Server\GetServerIdByIpCommand($this->webservice);
-        $this->command($serverGetServerIdByIpCommand);
+        $this->command(new Server\GetCommand($this->webservice));
+        $this->command(new Server\GetServerIdByIpCommand($this->webservice));
     }
 }

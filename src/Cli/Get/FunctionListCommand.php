@@ -31,7 +31,8 @@ class FunctionListCommand extends BaseCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $result = json_decode($this->webService->getFunctionsList($this->session_id)->response());
+
+        $result = json_decode($this->webService->getFunctionsList()->response());
 
         $table = new Table($output);
         $table->setHeaders(array('Function Name'));

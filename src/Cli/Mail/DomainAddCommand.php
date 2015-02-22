@@ -1,14 +1,17 @@
-<?php namespace Cli\Client;
+<?php
+
+namespace Cli\Mail;
 
 use Cli\BaseCommand;
-use Cli\ISPConfigWS;
-use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Input\InputArgument;
 
-class AddCommand extends BaseCommand
-{
+/**
+ * Class DomainAddCommand
+ * @package Cli\Mail
+ */
+class DomainAddCommand extends BaseCommand{
 
     /**
      * @var ISPConfigWS
@@ -82,21 +85,23 @@ class AddCommand extends BaseCommand
     );
     protected $supportsParamsFile = FALSE;
 
-    /**
-     * @var $webService ISPConfigWS
-     */
-    function __construct($webService)
-    {
-        parent::__construct();
-        $this->webService = $webService;
-    }
 
+    /**
+     * @param InputInterface $input
+     * @param OutputInterface $output
+     * @return int|null|void
+     */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $result = json_decode($this->webService
-            ->with($this->sanitizeParameters($input))
-            ->addClient()
-            ->response());
-        $this->renderValue($output, $result);
+
+        $result = $this
+            ->setSoapSession( $output )
+            ->validateResult($this->client->mail_domain_add( $this->session_id, $input->getArgument('domain_id')));
+
+        $table = $this->getHelperSet()->get('table')->setLayout(1);
+        foreach ( $result as  $key=> $value)
+            $table->addRow(array( $key,$value));
+
+        $table->setHeaders(array('Setting', 'Value'))->render($output);
     }
 }

@@ -37,7 +37,7 @@ class GetCommand extends BaseCommand
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $result = json_decode($this->webService
-            ->with($input->getArguments())
+            ->with($this->sanitizeParameters($input))
             ->getClient()
             ->response());
 

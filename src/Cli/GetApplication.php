@@ -16,7 +16,6 @@ class GetApplication extends BaseApplication
         $this->webservice = $webservice;
         parent::__construct( $this->webservice);
 
-        $functionListCommand = new Get\FunctionListCommand(  $this->webservice);
-        $this->command($functionListCommand);
+        $this->command(new Get\FunctionListCommand($this->webservice));
     }
 }

@@ -1,15 +1,19 @@
 <?php namespace Cli;
 
-class DomainsApplication extends BaseApplication  {
+class DomainsApplication extends BaseApplication
+{
 
-    public function __construct() {
+    /**
+     * @var ISPConfigWS
+     */
+    private $webservice;
 
-        parent::__construct();
+    public function __construct(ISPConfigWS $webservice)
+    {
+        $this->webservice = $webservice;
+        parent::__construct($this->webservice);
 
-        $domainGetCommand = new Domains\DomainGetCommand();
-        $this->command($domainGetCommand);
-
-        $domainAddCommand = new Domains\DomainAddCommand();
-        $this->command($domainAddCommand);
+        $this->command(new Domains\DomainGetCommand($this->webservice));
+        $this->command(new Domains\DomainAddCommand($this->webservice));
     }
 }
